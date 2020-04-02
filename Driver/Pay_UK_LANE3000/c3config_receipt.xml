@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ingenico.com/C3ConfigXMLSchema" xsi:schemaLocation="http://www.ingenico.com/C3ConfigXMLSchema c3config_receipt.xsd">
+	<application name="CLS">
+		<receipt name="CLIENT">
+			<field name="HEADER" print="YES" position="CENTER" emptyline="1"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="AID" print="YES" position="LEFT"/>
+			<field name="CARDSCHEME" print="YES" position="LEFT"/>
+			<field name="PAN" print="YES" position="LEFT"/>
+			<field name="CARD_SEQUENCE_NUMBER" print="YES" position="LEFT"/>
+			<field name="SWIPED_ISSUE_NUMBER" print="YES" position="LEFT"/>
+			<field name="ENTRY_MODE" print="YES" position="LEFT"/>
+			<field name="USER_DATA_1" print="YES" position="LEFT"/>
+			<field name="USER_DATA_2" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_TYPE" print="YES" position="CENTER"/>
+			<field name="AMOUNT" print="YES" position="CENTER" wordwrap="YES"/>
+			<field name="CASH_AMOUNT" print="YES" position="CENTER" wordwrap="YES"/>
+			<field name="TOTAL_AMOUNT" print="YES" position="CENTER" wordwrap="YES"/>
+			<field name="AVAILABLE_AMOUNT" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="ACCOUNT_VERIFICATION_RESULT" print="YES" position="LEFT"/>
+			<field name="CARDHOLDER_VERIFICATION_METHOD" print="YES" position="LEFT"/>
+			<field name="AUTHORISATION_CODE" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_NUMBER" print="YES" position="LEFT"/>
+			<field name="MID" print="YES" position="LEFT"/>
+			<field name="TID" print="YES" position="LEFT"/>
+			<field name="CRYPTOGRAM" print="YES" position="LEFT"/>
+			<field name="DATE_TIME" print="YES" position="LEFT" emptyline="1"/>
+			<field name="DCC_AMOUNT" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_EXCHANGE_RATE" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_COMMISSION" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_MARKUP" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_DISCLAIMER" print="YES" position="LEFT"/>
+			<field name="DCC_EXCHANGE_SOURCE" print="YES" position="LEFT"/>
+			<field name="RECEIPT_TYPE" print="YES" position="CENTER"/>
+			<field name="RETAIN_MESSAGE" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE2" print="YES" position="LEFT"/>
+			<field name="ABORT_MESSAGE" print="YES" position="LEFT" emptyline="1"/>
+			<field name="TEST_CARD_MESSAGE" print="YES" position="LEFT"/>
+		</receipt>
+		<receipt name="MERCHANT">
+			<field name="HEADER" print="YES" position="CENTER" emptyline="1"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="AID" print="YES" position="LEFT"/>
+			<field name="CARDSCHEME" print="YES" position="LEFT"/>
+			<field name="PAN" print="YES" position="LEFT"/>
+			<field name="START_DATE" print="YES" position="LEFT"/>
+			<field name="EXPIRY_DATE" print="YES" position="LEFT"/>
+			<field name="CARD_SEQUENCE_NUMBER" print="YES" position="LEFT"/>
+			<field name="SWIPED_ISSUE_NUMBER" print="YES" position="LEFT"/>
+			<field name="ENTRY_MODE" print="YES" position="LEFT"/>
+			<field name="USER_DATA_1" print="YES" position="LEFT"/>
+			<field name="USER_DATA_2" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_TYPE" print="YES" position="CENTER"/>
+			<field name="AMOUNT" print="YES" position="CENTER" wordwrap="YES"/>
+			<field name="CASH_AMOUNT" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="TOTAL_AMOUNT" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="AVAILABLE_AMOUNT" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="ACCOUNT_VERIFICATION_RESULT" print="YES" position="LEFT"/>
+			<field name="MERCHANT_SIGNATURE_MESSAGE" print="YES" position="LEFT" emptyline="3"/>
+			<field name="TRANSACTION_MESSAGE_1" print="YES" position="CENTER"/>
+			<field name="TRANSACTION_MESSAGE_2" print="YES" position="CENTER"/>
+			<field name="CARDHOLDER_VERIFICATION_METHOD" print="YES" position="LEFT"/>
+			<field name="AUTHORISATION_CODE" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_IDENTIFIER" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_NUMBER" print="YES" position="LEFT"/>
+			<field name="FILE_NUMBER" print="YES" position="LEFT"/>
+			<field name="MID" print="YES" position="LEFT"/>
+			<field name="TID" print="YES" position="LEFT"/>
+			<field name="CRYPTOGRAM" print="YES" position="LEFT"/>
+			<field name="DATE_TIME" print="YES" position="LEFT" emptyline="1"/>
+			<field name="DCC_AMOUNT" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_EXCHANGE_RATE" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_COMMISSION" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_MARKUP" print="YES" position="CENTER"  wordwrap="YES"/>
+			<field name="DCC_DISCLAIMER" print="YES" position="LEFT"/>
+			<field name="DCC_EXCHANGE_SOURCE" print="YES" position="LEFT"/>
+			<field name="RECEIPT_TYPE" print="YES" position="CENTER"/>
+			<field name="RETAILER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE2" print="YES" position="LEFT"/>
+			<field name="ABORT_MESSAGE" print="YES" position="LEFT" emptyline="1"/>
+			<field name="TEST_CARD_MESSAGE" print="YES" position="LEFT"/>
+			<field name="EMV_DEBUG" print="YES" position="LEFT" mode="FULL"/>
+		</receipt>
+		<receipt name="DETAILS">
+			<field name="HEADER" print="YES" position="CENTER"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="USER_DATA_1" print="YES" position="LEFT"/>
+			<field name="USER_DATA_2" print="YES" position="LEFT"/>
+			<field name="PAN" print="YES" position="LEFT"/>
+			<field name="CARD_SEQUENCE_NUMBER" print="YES" position="LEFT"/>
+			<field name="EXPIRY_DATE_STATUS" print="YES" position="LEFT"/>
+			<field name="AMOUNT" print="YES" position="LEFT"/>
+			<field name="MID" print="YES" position="LEFT"/>
+			<field name="TID" print="YES" position="LEFT"/>
+		</receipt>
+	</application>
+	<application name="EHL">
+		<receipt name="CLIENT">
+			<field name="RETAILER_HEADER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_HEADER_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="CASHIER_NUMBER" print="YES" position="LEFT"/>
+			<field name="DATE_TIME" print="YES" position="LEFT" emptyline="1"/>
+			<field name="HOST_RECEIPT" print="YES" position="LEFT" emptyline="2"/>
+			<field name="RETAIL_TRANSACTION_REFERENCE" print="YES" position="LEFT" emptyline="2"/>
+			<field name="RETAILER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE2" print="YES" position="LEFT"/>
+		</receipt>
+		<receipt name="DUPLICATE">
+			<field name="RETAILER_HEADER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_HEADER_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="CASHIER_NUMBER" print="YES" position="LEFT"/>
+			<field name="DATE_TIME" print="YES" position="LEFT" emptyline="1"/>
+			<field name="TRANSACTION_TYPE" print="YES" position="CENTER"/>
+			<field name="RETAIL_TRANSACTION_REFERENCE" print="YES" position="LEFT" emptyline="1"/>
+			<field name="ACQUIRER_TRANSACTION_ID" print="YES" position="LEFT"/>
+			<field name="AMOUNT" print="YES" position="LEFT" emptyline="1"/>
+			<field name="TRANSACTION_TYPE" print="YES" position="CENTER" emptyline="3"/>
+			<field name="RETAILER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE2" print="YES" position="LEFT"/>
+		</receipt>
+	</application>
+	<application name="AGC">
+		<receipt name="CLIENT">
+			<field name="HEADER" print="YES" position="CENTER" emptyline="1"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="CARDSCHEME" print="YES" position="LEFT"/>
+			<field name="PAN" print="YES" position="LEFT"/>
+			<field name="ENTRY_MODE" print="YES" position="LEFT"/>
+			<field name="USER_DATA_1" print="YES" position="LEFT"/>
+			<field name="USER_DATA_2" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_TYPE" print="YES" position="CENTER"/>
+			<field name="AMOUNT" print="YES" position="CENTER" wordwrap="YES"/>
+			<field name="BALANCE" print="YES" position="LEFT" wordwrap="NO"/>
+			<field name="OPENING_BALANCE" print="YES" position="LEFT" wordwrap="NO"/>
+			<field name="CLOSING_BALANCE" print="YES" position="LEFT" wordwrap="NO"/>
+			<field name="ACCOUNT_VERIFICATION_RESULT" print="YES" position="LEFT"/>
+			<field name="CARDHOLDER_VERIFICATION_METHOD" print="YES" position="LEFT"/>
+			<field name="AUTHORISATION_CODE" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_NUMBER" print="YES" position="LEFT"/>
+			<field name="MID" print="YES" position="LEFT"/>
+			<field name="TID" print="YES" position="LEFT"/>
+			<field name="DATE_TIME" print="YES" position="LEFT" emptyline="1"/>
+			<field name="RECEIPT_TYPE" print="YES" position="CENTER"/>
+			<field name="RETAIN_MESSAGE" print="YES" position="LEFT" emptyline="1"/>
+			<field name="OFFLINE_MESSAGE" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE2" print="YES" position="LEFT"/>
+			<field name="ABORT_MESSAGE" print="YES" position="LEFT" emptyline="1"/>
+			<field name="TEST_CARD_MESSAGE" print="YES" position="LEFT"/>
+		</receipt>
+		<receipt name="MERCHANT">
+			<field name="HEADER" print="YES" position="CENTER" emptyline="1"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="CARDSCHEME" print="YES" position="LEFT"/>
+			<field name="PAN" print="YES" position="LEFT"/>
+			<field name="START_DATE" print="YES" position="LEFT"/>
+			<field name="EXPIRY_DATE" print="YES" position="LEFT"/>
+			<field name="ENTRY_MODE" print="YES" position="LEFT"/>
+			<field name="USER_DATA_1" print="YES" position="LEFT"/>
+			<field name="USER_DATA_2" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_TYPE" print="YES" position="CENTER"/>
+			<field name="AMOUNT" print="YES" position="CENTER" wordwrap="YES"/>
+			<field name="BALANCE" print="YES" position="LEFT" wordwrap="NO"/>
+			<field name="OPENING_BALANCE" print="YES" position="LEFT" wordwrap="NO"/>
+			<field name="CLOSING_BALANCE" print="YES" position="LEFT" wordwrap="NO"/>
+			<field name="ACCOUNT_VERIFICATION_RESULT" print="YES" position="LEFT"/>
+			<field name="CARDHOLDER_VERIFICATION_METHOD" print="YES" position="LEFT"/>
+			<field name="AUTHORISATION_CODE" print="YES" position="LEFT"/>
+			<field name="TRANSACTION_NUMBER" print="YES" position="LEFT"/>
+			<field name="MID" print="YES" position="LEFT"/>
+			<field name="TID" print="YES" position="LEFT"/>
+			<field name="DATE_TIME" print="YES" position="LEFT" emptyline="1"/>
+			<field name="RECEIPT_TYPE" print="YES" position="CENTER"/>
+			<field name="RETAILER_LINE1" print="YES" position="LEFT"/>
+			<field name="RETAILER_LINE2" print="YES" position="LEFT"/>
+			<field name="ABORT_MESSAGE" print="YES" position="LEFT" emptyline="1"/>
+			<field name="TEST_CARD_MESSAGE" print="YES" position="LEFT"/>
+		</receipt>
+		<receipt name="DETAILS">
+			<field name="HEADER" print="YES" position="CENTER"/>
+			<field name="MERCHANT_NAME_LINE1" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE2" print="YES" position="LEFT"/>
+			<field name="MERCHANT_NAME_LINE3" print="YES" position="LEFT"/>
+			<field name="USER_DATA_1" print="YES" position="LEFT"/>
+			<field name="USER_DATA_2" print="YES" position="LEFT"/>
+			<field name="PAN" print="YES" position="LEFT"/>
+			<field name="EXPIRY_DATE_STATUS" print="YES" position="LEFT"/>
+			<field name="AMOUNT" print="YES" position="LEFT"/>
+			<field name="MID" print="YES" position="LEFT"/>
+			<field name="TID" print="YES" position="LEFT"/>
+		</receipt>
+	</application>
+</config>

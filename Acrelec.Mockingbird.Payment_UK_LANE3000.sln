@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acrelec.Mockingbird.Payment_UK_LANE3000", "Loader\Acrelec.Mockingbird.Payment_UK_LANE3000\Acrelec.Mockingbird.Payment_UK_LANE3000.csproj", "{754E25E8-2682-4AF2-A308-9340CC1C7351}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Loader", "Loader", "{21ABE3A1-C00C-4593-BA91-8831828E2D33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driver", "Driver", "{61F73ED8-DF1C-459F-8751-3730250F60B5}"
+	ProjectSection(SolutionItems) = preProject
+		Driver\Pay_UK_LANE3000\acrelec_icon.ico = Driver\Pay_UK_LANE3000\acrelec_icon.ico
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAY_UK_LANE3000", "Driver\Pay_UK_LANE3000\PAY_UK_LANE3000.csproj", "{72F7355B-515F-4FFD-B216-B7EE334B2A53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{754E25E8-2682-4AF2-A308-9340CC1C7351}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{754E25E8-2682-4AF2-A308-9340CC1C7351}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{754E25E8-2682-4AF2-A308-9340CC1C7351}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{754E25E8-2682-4AF2-A308-9340CC1C7351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72F7355B-515F-4FFD-B216-B7EE334B2A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72F7355B-515F-4FFD-B216-B7EE334B2A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72F7355B-515F-4FFD-B216-B7EE334B2A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72F7355B-515F-4FFD-B216-B7EE334B2A53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{754E25E8-2682-4AF2-A308-9340CC1C7351} = {21ABE3A1-C00C-4593-BA91-8831828E2D33}
+		{72F7355B-515F-4FFD-B216-B7EE334B2A53} = {61F73ED8-DF1C-459F-8751-3730250F60B5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDA817F6-B28A-4A41-AE67-D79B0B22B69D}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,239 @@
+
+#Integration server IP:Port(mandatory)
+AXIS_COM=socket 91.208.214.106 9729
+
+# Axis secondary server (optional)
+AXIS_COM2=socket 91.208.214.106 9729
+
+#Local COM port for PED comms
+L10_COM=COM8 115200/8/1/0
+
+# Reader Type > L3000E is default (name is historical – L3000E being CKD / MoneyLine readers)
+LECTEUR_CB=RPM_NO_KEYED
+
+# Name of receipt files
+LPR_COM=%ticket
+
+LPR_LINE=1    
+CHEQUE=00
+
+SSL_MODE=1
+AXIS_RECONNECT=1 
+TIME_OUT_IP=5
+TIME_OUT_IP_INIT=5
+TIME_OUT_CNX=30
+C3NET_MONOSESSION=1
+TPE_SSL_MODE=1
+CARTES=ADM CPA
+QTPV=20222001
+QCASH=00000001
+OFF_FILE=1
+TRNS_OFFLINE_COUNTER=5
+
+# 0 : Value Configured in tag below should not be used
+# 1 : Value configured in tag below should be used
+VISA_RRP_MODE=1
+
+# Value used by C3 to configure the DRL (Dynamic Reader Limit) within the RAM application.
+VISA_RRP_DATA=DF6B10012E000100000BB90000000032204000DF6B0701022030004000DF6B1201AC000531026826200100000BB900000BB9DF6B1501AC0008310268261200000301000005DD000003E9DF6B1201AC0005310268261201000005DD000009C5DF6B1201AC0005310268260001000007D1000005DD
+
+
+#########################  PARAMETRES APPLICATIFS  #########################
+# Liste des applications
+8208=ADM 0 q # 0001
+0768=ACP V A # 0107
+0798=ACE p 3 # 0107
+0208=AMX 6 2 # 0007
+# AME PROXIMITE
+0293=AME 6 2 # 0107
+# AMEX EXPRESSPAY
+0295=AMS ) ) # 0107
+# AME AUTOMATE
+0296=AME 6 2 # 0107
+3608=APH k R h 0007
+0193=EMV T E # 0107
+0196=EMV T E # 0107
+0173=VAD I V # 0127 1???????
+0148=LBS G s # 0127 2???????
+1184=PCC & M # 0107 6???????
+0728=CCB $ $ # 107 7???????
+0738=SCB % % # 107 8???????
+0748=CCB $ $ # 107 7??????? 
+0581=CPA c c # 0007
+0508=DCF 7 6 # 0007 
+5008=CAT u a n 0007
+4808=CED r b # 0067
+4200=CEV 5 Y o 0007
+0693=CFE l X # 0007
+5793=CNS g B # 0107
+#Sans contact g?re bien un pr?fixe, ? d?finir au moment de l'utilisation
+5795=CNX v f # 0107 ????????
+0308=CHQ N C # 0007
+0310=CHQ N C # 0007
+0608=COF 2 5 # 0007
+4308=CSB d W # 0007
+0438=CTD 8 z N 0207
+0408=CTF 8 4 # 0007
+#0418=CTM 8 4 # 0007
+#9999=CTG # # l 0007
+0508=DCF 7 6 # 0007
+3408=DTV i D j 0007
+9999=EDL # # O 0007
+1708=ELF X d # 0007
+1508=FNF F F R 0007
+1208=FNC g B # 0007
+1402=GAV z k s 0007
+#9999=GLF # # p 0007
+#9999=MGL # # r 0007
+5800=PME n n # 0103
+7608=PMS a g d 0003
+5608=PSC x = # 0201
+3508=PSD j J k 0007
+1108=JCB D 9 # 0007
+1113=JCE D 9 # 0107
+1008=FFI 9 8 # 0107
+3708=CUP m O # 0007
+3718=CUN m e # 0107
+0183=FXO f K # 0103
+0184=FCC f L # 0107
+0185=FTX f Q # 0107
+4908=NAV ! r # 0001 
+1608=SCO B S # 0007 
+# Applications Sans Contact 
+0195=SSC J Z # 0107
+0197=SSC J Z # 0107
+7000=NSE J w # 0107
+# Applications MPA
+0191=EM1 J t # 0107 0
+0192=EM2 K u # 0107 1
+0297=EM3 & & # 0107 2
+0298=EM4 < < # 0107 
+3100=GAX 9 v # FF
+#
+0210=MTS U x # 0107
+3908=PSA t 8 # 0007
+0458=IPF ? * # 0000
+0448=IPS " j # 0343
+0468=VBK # ! # 0245
+3728=OLA - - # 0243
+# Applications Paiement en N fois
+2408=CDM W N # 0007
+3893=OPT W T # 0007
+#0478=FNP ' ' # 21 MOCK-UP 
+0478=FNP ' ' # 0007 
+5308=NXS / / # 0007
+0488=FIV ( ( # 0245
+0498=VAS H H # 0367
+# Application PASS LIB
+0583=PAS b x # 0107
+0582=SDM q I # 0107
+0222=RPI m m # 0000
+
+
+LPR_COM=ticket
+TICKET_COMM=0
+PRINTER_MODE=0
+DISPLAY_MODE=0
+BUZZER_MODE=2
+AXIS_OFF=D
+CODE_LANGUE=en
+CODE_LCID=9
+
+#Control receipt printing
+#‘0’: C3Qt sends the receipts to the printer
+#‘1’: C3Qt displays receipts (default).
+PRINTER_MODE=1
+
+############################################################################
+###########################  PARAMETRES DIVERS  ############################
+############################################################################
+# Is the till attended?
+# 1 : Unattended, no cashier, no keyboard input
+# 0 : Attended, key entry available on the till
+AUTOMATE=1
+
+####  Trace Fichier dYYMMDD.log   #######
+# 0 : pas de traces  (xx)
+# 1 : Erreurs fatales
+# 2 : Simples Erreurs
+# 3 : warnings
+# 4 : info
+# 5 : debug
+# 6 : debug les callbacks
+# 7 : debug les callbacks + polling getkey
+TRACE=7
+TRACE_CRYPT=1
+#TRACE_PURGE=2
+REPOS_1=     KFC
+REPOS_2=   Integration
+
+# Generate log file of exchanges between the
+# Sales Application and C3 (No PCI Data included)
+# 0 : No log
+# 1 or 2 : Log of exchanges
+C3NET_TRACE=2
+############################################################################
+#########################  PARAMETRES APPLICATIFS  #########################
+############################################################################
+# Define the type of POS
+# - 10 : Attended POS (default)
+# - 20 : MOTO
+# - 40 : Unattended POS
+# Some additional values can be used for the
+# French market.
+MODE_PAIEMENT=10
+COMPLEMENT_ERT=0
+TICKET_TNA=1
+CARTE_TEST=1
+C3API_VERSION=2  
+PLBS_MODE_GMM=1
+CHEQUE=80 0
+CHQ_VAL_FNCI_GAR=1
+MIGRATION_MERCURE_FID_ACE=2
+MIGRATION_MERCURE_FID_ACP=2
+ICL_MODE=1
+MSG_INF_SUP_INF=1
+CHECK_INSERT=0
+
+#pre authorisation check to ensure the customer card has been removed
+WAIT_REMOVE_CARD=1
+
+GSQT=VALID
+SET_DATE_TIME=1
+P9_DISPLAY_DELAY=0
+P9_IDLE_AFTER_F05=0
+P9_PROTOCOL_TYPE=0
+EXTENDED_C3API_SUPPORT=1
+C3NET_NOGETKEYINIT=0
+C3_APPAIRAGE_ON=0
+AUTO_PARTIELLE=0
+TMS_AGENT_SLEEP_TIME=100
+TMS_AGENT_REBOOT_TIME=0
+TMS_AGENT_TRACE_LEVEL=6
+SCREENSAVER=1
+IDLE_BACKLIGHT=1
+PRINT_PAYMENT_ID=0
+CALLBACK_PRINT_SUPPORT=1
+
+CHGT_CAL_AXIS=0
+# CHGT_CAL_AXIS=0 - dont update Firmware via GT
+
+Time used by C3 to wait for the card insertion. Value in seconds (default 60)
+CARD_INSERTION_TIME_OUT=120
+
+#The TCP/IP port that C3NET will monitor for messages from the Sales Application
+C3NET_COM=9518
+
+C3_LOG_LEVEL=8
+
+PIN_CODE=1
+
+NOM_PORTEUR=0
+
+GSQT=DEFAULT
+
+VOICE_REFERRAL_ENABLED=0
+
+POS_DISPLAY_FLAG=1DF
+
+PKE_FALLBACK=0
