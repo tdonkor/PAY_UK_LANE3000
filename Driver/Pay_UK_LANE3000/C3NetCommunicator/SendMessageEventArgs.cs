@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PAY_UK_IPP350.C3NetCommunicator
+namespace PAY_UK_LANE3000.C3NetCommunicator
 {
     /// <summary>
     /// Object that represent the argument of the SendMessageEvent

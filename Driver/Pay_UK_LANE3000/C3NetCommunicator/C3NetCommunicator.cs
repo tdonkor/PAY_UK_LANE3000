@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using Acrelec.Library.Logger;
-using PAY_UK_IPP350.Model;
+using PAY_UK_LANE3000.Model;
 
-namespace PAY_UK_IPP350.C3NetCommunicator
+namespace PAY_UK_LANE3000.C3NetCommunicator
 {
     public class C3NetCommunicator
     {

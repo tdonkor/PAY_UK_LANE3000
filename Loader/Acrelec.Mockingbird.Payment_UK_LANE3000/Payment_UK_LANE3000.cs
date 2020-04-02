@@ -14,20 +14,20 @@ using Acrelec.Mockingbird.Feather.Peripherals.Models;
 using Acrelec.Mockingbird.Feather.Peripherals.Settings;
 using Acrelec.Mockingbird.Interfaces.Peripherals;
 
-namespace Acrelec.Mockingbird.Payment_UK_IPP350
+namespace Acrelec.Mockingbird.Payment_UK_LANE3000
 {
     [Export(typeof(IPayment))]
-    public class Payment_UK_IPP350 : IPaymentCard, ICommunicatorCallbacks
+    public class Payment_UK_LANE3000 : IPaymentCard, ICommunicatorCallbacks
     {
-        private const string PAYMENT_ID = "10";
+        private const string PAYMENT_ID = "826018";
 
-        private const string PAYMENT_LOG = "Payment_UK_IPP350";
+        private const string PAYMENT_LOG = "Payment_UK_LANE3000 ";
 
-        private const string PAYMENT_NAME = "UK_IPP350";
+        private const string PAYMENT_NAME = "UK_LANE3000 ";
 
-        private const string PAYMENT_APPLICATION_NAME = "PAY_UK_IPP350.exe";
+        private const string PAYMENT_APPLICATION_NAME = "PAY_UK_LANE3000 .exe";
 
-        private const string PAYMENT_APPLICATION_PROCESS_NAME = "PAY_UK_IPP350";
+        private const string PAYMENT_APPLICATION_PROCESS_NAME = "PAY_UK_LANE3000 ";
 
         private const string C3NET_CONFIG = "c3config";
 
@@ -160,7 +160,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
         ILogger logger;
 
         [ImportingConstructor]
-        public Payment_UK_IPP350(ILogger logger = null)
+        public Payment_UK_LANE3000(ILogger logger = null)
         {
             this.logger = logger;
 

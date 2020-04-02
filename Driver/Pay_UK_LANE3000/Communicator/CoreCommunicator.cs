@@ -4,7 +4,7 @@ using Acrelec.Library.Pipes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace PAY_UK_IPP350.Communicator
+namespace PAY_UK_LANE3000.Communicator
 {
     /// <summary>
     /// Class in charge with the communication between the Pay application .exe and the Acrelec.Mockingbird.Core.Service.exe via Pipes
@@ -20,12 +20,12 @@ namespace PAY_UK_IPP350.Communicator
         /// <summary>
         /// The name of the Pipe server that the Pay application .exe will open to receive messages from the Acrelec.Mockingbird.Core.Service.exe
         /// </summary>
-        private const string PAY_APPLICATION_PIPE_SERVER_NAME = "UK_IPP350_ExePipeServer";
+        private const string PAY_APPLICATION_PIPE_SERVER_NAME = "UK_LANE3000_ExePipeServer";
 
         /// <summary>
         /// The name of the Pipe server that the Acrelec.Mockingbird.Core.Service.exe will open to receive messages from the Pay application .exe
         /// </summary>
-        private const string CORE_PIPE_SERVER_NAME = "UK_IPP350_CorePipeServer";
+        private const string CORE_PIPE_SERVER_NAME = "UK_LANE3000_CorePipeServer";
         #endregion
 
         public ICommunicatorCallbacks CommunicatorCallbacks { get; set; }

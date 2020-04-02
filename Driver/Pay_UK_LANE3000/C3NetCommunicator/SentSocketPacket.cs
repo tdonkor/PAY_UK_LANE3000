@@ -1,6 +1,6 @@
 ﻿using System.Net.Sockets;
 
-namespace PAY_UK_IPP350.C3NetCommunicator
+namespace PAY_UK_LANE3000.C3NetCommunicator
 {
     /// <summary>
     /// Object that represents a packet that is sent threw the socket

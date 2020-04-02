@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Acrelec.Mockingbird.Interfaces;
 using Acrelec.Mockingbird.Interfaces.Peripherals;
 
-namespace Acrelec.Mockingbird.Payment_UK_IPP350
+namespace Acrelec.Mockingbird.Payment_UK_LANE3000
 {
     public class C3NetManager
     {

@@ -37,7 +37,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace Acrelec.Mockingbird.Payment_UK_IPP350
+namespace Acrelec.Mockingbird.Payment_UK_LANE3000
 {
     public static class IniFilesSimple
     {
@@ -78,7 +78,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
             {
                 if (logger != null)
                 {
-                    logger.Error("Payment_UK_IPP350", string.Format("ReadString : Failed to read payment setting.\r\n{0}", ex.Message));
+                    logger.Error("Payment_UK_LANE3000", string.Format("ReadString : Failed to read payment setting.\r\n{0}", ex.Message));
                 }
             }
 

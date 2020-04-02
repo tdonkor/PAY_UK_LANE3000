@@ -1,7 +1,7 @@
 ﻿using Acrelec.Library.Logger;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PAY_UK_IPP350.Model;
+using PAY_UK_LANE3000.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,15 +12,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
-using PAY_UK_IPP350.C3NetCommunicator;
-using PAY_UK_IPP350.Communicator;
+using PAY_UK_LANE3000.C3NetCommunicator;
+using PAY_UK_LANE3000.Communicator;
 
-namespace PAY_UK_IPP350
+namespace PAY_UK_LANE3000
 {
 
-    public class PayIngenicoIpp350 : ICommunicatorCallbacks
+    public class PayIngenicoLANE3000 : ICommunicatorCallbacks
     {
-        public const string PAY_INGENICO_IPP350_LOG = "Pay_Ingenico_Ipp350";
+        public const string PAY_INGENICO_LANE3000_LOG = "Pay_Ingenico_LANE3000";
 
         /// <summary>
         /// Object that is used for the communication with the Core Payment Driver
@@ -89,7 +89,7 @@ namespace PAY_UK_IPP350
         /// </summary>
         private ICommunicatorCallbacks CommunicatorCallbacks { get; set; }
 
-        public PayIngenicoIpp350(CoreCommunicator coreCommunicator)
+        public PayIngenicoLANE3000(CoreCommunicator coreCommunicator)
         {
             this.coreCommunicator = coreCommunicator;
 
@@ -127,16 +127,16 @@ namespace PAY_UK_IPP350
         /// </summary>
         public void Init(object parameters)
         {
-            Log.Info(PAY_INGENICO_IPP350_LOG, "call Initialize");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "call Initialize");
 
             //Check if another method is executing
             if (IsCallbackMethodExecuting)
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = -1 });
 
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        another method is executing.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        another method is executing.");
 
-                Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Initialize");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Initialize");
 
                 return;
             }
@@ -152,7 +152,7 @@ namespace PAY_UK_IPP350
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = -1 });
 
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        failed to deserialize the init parameters.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        failed to deserialize the init parameters.");
             }
 
             //Connect to the C3Net 
@@ -180,9 +180,9 @@ namespace PAY_UK_IPP350
                 if (!c3NetCommunicator.Send(requestString))
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = -334, Description = "failed to send Initialization request" });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        failed to send initialization request.");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        failed to send initialization request.");
                     IsCallbackMethodExecuting = false;
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Initialize");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Initialize");
                     return;
                 }
 
@@ -190,29 +190,29 @@ namespace PAY_UK_IPP350
                 if (!WaitingEFTBeginConfirmationResponse())
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = -335, Description = "No EFT Begin Confirmation was received" });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        No EFT Begin Confirmation was received");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        No EFT Begin Confirmation was received");
                     IsCallbackMethodExecuting = false;
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Initialize");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Initialize");
                     return;
                 }
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        received EFT Begin Confirmation.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        received EFT Begin Confirmation.");
 
                 //Wait eft end response
                 if (!WaitingEFTEndResponse())
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = -336, Description = "No EFT End Response was received" });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        No EFT End Response was received");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        No EFT End Response was received");
                     IsCallbackMethodExecuting = false;
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Initialize");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Initialize");
                     return;
                 }
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        received EFT End Confirmation.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        received EFT End Confirmation.");
 
 
                 if (eftEndResponse.Error == 0)
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = 0, Description = "Ready" });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        EFT succesfully initialized");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        EFT succesfully initialized");
 
                     CheckPayment();
 
@@ -221,12 +221,12 @@ namespace PAY_UK_IPP350
                 }
                 else
                 {
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        Error Code: {0}", eftEndResponse.Error);
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        Error Code Response: {0}", eftEndResponse.ErrorResponseCode);
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        Error Message:{0}", eftEndResponse.ErrorMessage);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        Error Code: {0}", eftEndResponse.Error);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        Error Code Response: {0}", eftEndResponse.ErrorResponseCode);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        Error Message:{0}", eftEndResponse.ErrorMessage);
 
                     coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = eftEndResponse.Error, Description = eftEndResponse.ErrorMessage });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        EFT failed to initialized");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        EFT failed to initialized");
                 }
             }
 
@@ -234,7 +234,7 @@ namespace PAY_UK_IPP350
 
             IsCallbackMethodExecuting = false;
 
-            Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Initialize");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Initialize");
         }
 
         public void PayRequest(object parameters)
@@ -249,16 +249,16 @@ namespace PAY_UK_IPP350
         /// </summary>
         public void Pay(object parameters)
         {
-            Log.Info(PAY_INGENICO_IPP350_LOG, "call Pay");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "call Pay");
 
             //Check if another method is executing
             if (IsCallbackMethodExecuting)
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = 297, Description = "Another method is executing", PayDetails = new PayDetails() });
 
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        another method is executing.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        another method is executing.");
 
-                Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Pay");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Pay");
 
                 return;
             }
@@ -268,29 +268,29 @@ namespace PAY_UK_IPP350
             periodicalCheckTimer.Stop();
 
             //Get the pay request object that will be sent to the fiscal printer
-            Log.Info(PAY_INGENICO_IPP350_LOG, "        deserialize the pay request parameters.");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "        deserialize the pay request parameters.");
             PayRequest payRequest = GetPayRequest(parameters.ToString());
 
             //Check if the pay deserialization was successful
             if (payRequest == null)
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = -331, Description = "failed to deserialize the pay request parameters", PayDetails = new PayDetails() });
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        failed to deserialize the pay request parameters.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        failed to deserialize the pay request parameters.");
                 return;
             }
-            Log.Info(PAY_INGENICO_IPP350_LOG, "        deserialized pay request parameters.");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "        deserialized pay request parameters.");
 
             if (payRequest.Amount == 0)
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = -299, Description = "amount can't be zero.", PayDetails = new PayDetails() });
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        amount can't be zero.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        amount can't be zero.");
                 return;
             }
 
             if (string.IsNullOrEmpty(payRequest.TransactionReference))
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = -298, Description = "transaction reference can't be empty.", PayDetails = new PayDetails() });
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        transaction reference can't be empty.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        transaction reference can't be empty.");
                 return;
             }
 
@@ -324,9 +324,9 @@ namespace PAY_UK_IPP350
                 if (!c3NetCommunicator.Send(requestString))
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = -334, Description = "failed to send Initialization request", PayDetails = new PayDetails() });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        failed to send initialization request.");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        failed to send initialization request.");
                     IsCallbackMethodExecuting = false;
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Pay");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Pay");
                     return;
                 }
 
@@ -334,23 +334,23 @@ namespace PAY_UK_IPP350
                 if (!WaitingEFTBeginConfirmationResponse())
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = -335, Description = "No EFT Begin Confirmation was received", PayDetails = new PayDetails() });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        No EFT Begin Confirmation was received");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        No EFT Begin Confirmation was received");
                     IsCallbackMethodExecuting = false;
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Pay");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Pay");
                     return;
                 }
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        received EFT Begin Confirmation.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        received EFT Begin Confirmation.");
 
                 //Wait eft end response
                 if (!WaitingEFTEndResponse())
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = -336, Description = "No EFT End Response was received", PayDetails = new PayDetails() });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        No EFT End Response was received");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        No EFT End Response was received");
                     IsCallbackMethodExecuting = false;
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Pay");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Pay");
                     return;
                 }
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        received EFT End Confirmation.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        received EFT End Confirmation.");
 
                 PayDetails payDetails = new PayDetails();
 
@@ -379,16 +379,16 @@ namespace PAY_UK_IPP350
                     periodicalCheckTimer.Stop();
                     periodicalCheckTimer.Start();
 
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        Tender Media: {0}", eftEndResponse.TenderMedia);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        Tender Media: {0}", eftEndResponse.TenderMedia);
 
                     coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = 0, Description = "Successful payment", PayDetails = payDetails });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        credit card payment succeeded.");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        credit card payment succeeded.");
                 }
                 else
                 {
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        Error Code: {0}", eftEndResponse.Error);
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        Error Code Response: {0}", eftEndResponse.ErrorResponseCode);
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        Error Message:{0}", eftEndResponse.ErrorMessage);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        Error Code: {0}", eftEndResponse.Error);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        Error Code Response: {0}", eftEndResponse.ErrorResponseCode);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        Error Message:{0}", eftEndResponse.ErrorMessage);
 
                     //Save the ticket
                     if (!string.IsNullOrEmpty(eftEndResponse.CustomerTicket))
@@ -404,7 +404,7 @@ namespace PAY_UK_IPP350
                     }
 
                     coreCommunicator.SendMessage(CommunicatorMethods.Pay, new { Status = eftEndResponse.Error, Description = eftEndResponse.ErrorMessage, PayDetails = payDetails });
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        credit card payment failed.");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        credit card payment failed.");
                 }
             }
 
@@ -414,7 +414,7 @@ namespace PAY_UK_IPP350
 
             IsCallbackMethodExecuting = false;
 
-            Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Pay");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Pay");
         }
 
         /// <summary>
@@ -449,7 +449,7 @@ namespace PAY_UK_IPP350
             }
             catch (Exception ex)
             {
-                Log.Error(PAY_INGENICO_IPP350_LOG, string.Format("        failed to save ticket.\r\n{0}", ex.ToString()));
+                Log.Error(PAY_INGENICO_LANE3000_LOG, string.Format("        failed to save ticket.\r\n{0}", ex.ToString()));
             }
         }
 
@@ -471,29 +471,29 @@ namespace PAY_UK_IPP350
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Test, new { Status = -1 });
 
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        another method is executing (Stopped Test Method execution).");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        another method is executing (Stopped Test Method execution).");
 
                 return;
             }
             else
                 IsCallbackMethodExecuting = true;
 
-            Log.Info(PAY_INGENICO_IPP350_LOG, "call Test");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "call Test");
 
             if (IsTerminalReady)
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Test, new { Status = 0 });
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        success.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        success.");
             }
             else
             {
                 coreCommunicator.SendMessage(CommunicatorMethods.Test, new { Status = -1 });
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        failed.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        failed.");
             }
 
             IsCallbackMethodExecuting = false;
 
-            Log.Info(PAY_INGENICO_IPP350_LOG, "endcall Test");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall Test");
         }
 
         /// <summary>
@@ -502,7 +502,7 @@ namespace PAY_UK_IPP350
         /// </summary>
         private void CheckPayment()
         {
-            Log.Info(PAY_INGENICO_IPP350_LOG, "        checking payment status");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "        checking payment status");
 
             periodicalCheckTimer.Stop();
 
@@ -510,7 +510,7 @@ namespace PAY_UK_IPP350
             if (!ConnectToC3Net())
             {
                 IsTerminalReady = false;
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        the connection is down.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        the connection is down.");
             }
             else
             {
@@ -537,7 +537,7 @@ namespace PAY_UK_IPP350
                     UpdateAndRestartThePeriodicalCkeckStatus(false, "No EFT Begin Confirmation was received");
                     return;
                 }
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        received EFT Begin Confirmation.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        received EFT Begin Confirmation.");
 
                 //WAIT EFT END RESPONSE
                 if (!WaitingEFTEndResponse())
@@ -572,21 +572,21 @@ namespace PAY_UK_IPP350
                 //Only test the terminal if no other method is executing
                 if (IsCallbackMethodExecuting)
                 {
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        periodical check postponed");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        periodical check postponed");
                 }
                 else
                 {
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "call PeriodicalCheck");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "call PeriodicalCheck");
                     IsCallbackMethodExecuting = true;
                     CheckPayment();
                     IsCallbackMethodExecuting = false;
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "endcall PeriodicalCheck");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall PeriodicalCheck");
                 }
             }
             catch (Exception ex)
             {
-                Log.Info(PAY_INGENICO_IPP350_LOG, string.Format("        ElapsedPeriodicalCheckTimer: {0}", ex.ToString()));
-                Log.Info(PAY_INGENICO_IPP350_LOG, "endcall PeriodicalCheck");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, string.Format("        ElapsedPeriodicalCheckTimer: {0}", ex.ToString()));
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "endcall PeriodicalCheck");
             }
         }
 
@@ -603,7 +603,7 @@ namespace PAY_UK_IPP350
             }
             catch (Exception ex)
             {
-                Log.Info(PAY_INGENICO_IPP350_LOG, string.Format("        GetPayRequest: {0}", ex.ToString()));
+                Log.Info(PAY_INGENICO_LANE3000_LOG, string.Format("        GetPayRequest: {0}", ex.ToString()));
             }
 
             return null;
@@ -648,13 +648,13 @@ namespace PAY_UK_IPP350
                 //RESPOND_IMEDIATLY_ACTION
                 if (eFTPOSDispplayMessage.ActionType == EFTPOSDisplayMessageActionTypes.RESPOND_IMEDIATLY_ACTION)
                 {
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        [DISPLAY POS MESSAGE] {0} [RIC]", eFTPOSDispplayMessage.Description);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        [DISPLAY POS MESSAGE] {0} [RIC]", eFTPOSDispplayMessage.Description);
 
                 }
                 //RESPOND_WITH_1SEC_DELAY
                 else if (eFTPOSDispplayMessage.ActionType == EFTPOSDisplayMessageActionTypes.RESPOND_WITH_1SEC_DELAY)
                 {
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        [DISPLAY POS MESSAGE] {0} [RWD]", eFTPOSDispplayMessage.Description);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        [DISPLAY POS MESSAGE] {0} [RWD]", eFTPOSDispplayMessage.Description);
 
                     //Wait 1 second before sending the response message
                     Thread.Sleep(1000);
@@ -663,7 +663,7 @@ namespace PAY_UK_IPP350
                 //RESPOND_AFTER USER CONFIRMATION
                 else if (eFTPOSDispplayMessage.ActionType == EFTPOSDisplayMessageActionTypes.WAIT_FOR_AKNOLEDGEMENT_ACTION)
                 {
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        [DISPLAY POS MESSAGE] {0} [AFC]", eFTPOSDispplayMessage.Description);
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        [DISPLAY POS MESSAGE] {0} [AFC]", eFTPOSDispplayMessage.Description);
                 }
 
                 //Wait for the operator to press the "ENTER"
@@ -676,7 +676,7 @@ namespace PAY_UK_IPP350
             {
                 EFTProgressMessage eFTProgressMessage = new EFTProgressMessage(args.Message);
 
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        [PROGRESS MESSAGE]");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        [PROGRESS MESSAGE]");
 
                 Task.Run(() => { SendProgressMessageResponse(eFTProgressMessage.GetEFTProgressMessageCofirmationResponse()); });
             }
@@ -700,7 +700,7 @@ namespace PAY_UK_IPP350
                 Message = message
             };
 
-            Log.Info(PAY_INGENICO_IPP350_LOG, "        Sending Progress Message to Core");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "        Sending Progress Message to Core");
 
             coreCommunicator.SendMessage(CommunicatorMethods.ProgressMessage, new { PayProgress = payProgress });
         }
@@ -714,10 +714,10 @@ namespace PAY_UK_IPP350
             {
                 //Make another attempt to sent the Display message confirmation 
                 if (c3NetCommunicator.Send(message))
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        [DISPLAY POS MESSAGE] Send receival confirmation (second attept)");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        [DISPLAY POS MESSAGE] Send receival confirmation (second attept)");
             }
             else
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        [DISPLAY POS MESSAGE] Send receival confirmation");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        [DISPLAY POS MESSAGE] Send receival confirmation");
         }
 
         /// <summary>
@@ -729,10 +729,10 @@ namespace PAY_UK_IPP350
             {
                 //Make another attempt to sent the Display message confirmation 
                 if (c3NetCommunicator.Send(message))
-                    Log.Info(PAY_INGENICO_IPP350_LOG, "        [PROGRESS MESSAGE] Send receival confirmation (second attept)");
+                    Log.Info(PAY_INGENICO_LANE3000_LOG, "        [PROGRESS MESSAGE] Send receival confirmation (second attept)");
             }
             else
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        [PROGRESS MESSAGE] Send receival confirmation");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        [PROGRESS MESSAGE] Send receival confirmation");
         }
 
         /// <summary>
@@ -745,7 +745,7 @@ namespace PAY_UK_IPP350
         private bool ConnectToC3Net()
         {
             //Connect to the visual plugin
-            Log.Info(PAY_INGENICO_IPP350_LOG, "        trying to establish the connection to the C3Net.");
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "        trying to establish the connection to the C3Net.");
 
             c3NetCommunicator.AcceptConnection(IPAddress.Parse("127.0.0.1"), 9518);
             //Wait for the connection to be established of for the timeout to be triggered
@@ -757,12 +757,12 @@ namespace PAY_UK_IPP350
             //Check the socket connection
             if (!c3NetCommunicator.WasConnected)
             {
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        connection to the C3Net is down.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        connection to the C3Net is down.");
                 return false;
             }
             else
             {
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        connection to the C3Net was established.");
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        connection to the C3Net was established.");
                 return true;
             }
         }
@@ -785,14 +785,14 @@ namespace PAY_UK_IPP350
                     return false;
 
                 CurrencyValue = jObject["Currency"].ToString();
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        Currency: {0}", CurrencyValue);
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        Currency: {0}", CurrencyValue);
 
                 TerminalID = jObject["TerminalID"].ToString();
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        Terminal ID: {0}", TerminalID);
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        Terminal ID: {0}", TerminalID);
 
 
                 TestTimeout = Convert.ToInt32(jObject["TestTimeout"].ToString()) * 60 * 1000;
-                Log.Info(PAY_INGENICO_IPP350_LOG, "        Test Timeout: {0}", TestTimeout);
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        Test Timeout: {0}", TestTimeout);
 
                 //Update the periodical check timer with the value of the C3
                 periodicalCheckTimer.Interval = TestTimeout;
@@ -801,7 +801,7 @@ namespace PAY_UK_IPP350
             }
             catch (Exception ex)
             {
-                Log.Info(PAY_INGENICO_IPP350_LOG, string.Format("        GetInitParameters: {0}", ex.ToString()));
+                Log.Info(PAY_INGENICO_LANE3000_LOG, string.Format("        GetInitParameters: {0}", ex.ToString()));
             }
             return false;
         }
@@ -860,7 +860,7 @@ namespace PAY_UK_IPP350
         public void UpdateAndRestartThePeriodicalCkeckStatus(bool result, string message)
         {
             //Log the message 
-            Log.Info(PAY_INGENICO_IPP350_LOG, "        {0}", message);
+            Log.Info(PAY_INGENICO_LANE3000_LOG, "        {0}", message);
 
             //Change the terminal state
             IsTerminalReady = result;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAY_UK_IPP350.Model
+namespace PAY_UK_LANE3000.Model
 {
     /// <summary>
     /// In a payment request details of the order will be provided 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Acrelec.Mockingbird.Payment_UK_IPP350
+namespace Acrelec.Mockingbird.Payment_UK_LANE3000
 {
     public enum CommunicatorMethods : int
     {

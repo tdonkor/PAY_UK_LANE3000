@@ -6,7 +6,7 @@ using System;
 using System.ComponentModel.Composition;
 using Acrelec.Mockingbird.Interfaces.Peripherals;
 
-namespace Acrelec.Mockingbird.Payment_UK_IPP350
+namespace Acrelec.Mockingbird.Payment_UK_LANE3000
 {
     /// <summary>
     /// Class in charge with the communication between the PAY_ES_YOMANI.exe and the Acrelec.Mockingbird.Core.Service.exe via Pipes
@@ -22,12 +22,12 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
         /// <summary>
         /// The name of the Pipe server that the Pay application .exe will open to receive messages from the Acrelec.Mockingbird.Core.Service.exe
         /// </summary>
-        private const string PAY_APPLICATION_PIPE_SERVER_NAME = "UK_IPP350_ExePipeServer";
+        private const string PAY_APPLICATION_PIPE_SERVER_NAME = "UK_LANE3000_ExePipeServer";
 
         /// <summary>
         /// The name of the Pipe server that the Acrelec.Mockingbird.Core.Service.exe will open to receive messages from the Pay application .exe
         /// </summary>
-        private const string CORE_PIPE_SERVER_NAME = "UK_IPP350_CorePipeServer";
+        private const string CORE_PIPE_SERVER_NAME = "UK_LANE3000_CorePipeServer";
         #endregion
 
         public ICommunicatorCallbacks CommunicatorCallbacks { get; set; }

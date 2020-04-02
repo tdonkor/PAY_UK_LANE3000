@@ -1,4 +1,4 @@
-﻿namespace PAY_UK_IPP350.C3NetCommunicator
+﻿namespace PAY_UK_LANE3000.C3NetCommunicator
 {
     /// <summary>
     /// Event that will be raised when a message is received threw the socket

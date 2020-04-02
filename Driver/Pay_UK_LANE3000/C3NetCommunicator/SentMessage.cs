@@ -1,4 +1,4 @@
-﻿namespace PAY_UK_IPP350.C3NetCommunicator
+﻿namespace PAY_UK_LANE3000.C3NetCommunicator
 {
     /// <summary>
     /// When a message is send threw the server socket 

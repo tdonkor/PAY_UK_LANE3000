@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PAY_UK_IPP350.Model
+namespace PAY_UK_LANE3000.Model
 {  
     /// <summary>
     /// The EFT_BEGIN message is the message type used by the Sales Application to initiate

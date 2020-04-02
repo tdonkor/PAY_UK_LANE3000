@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PAY_UK_IPP350.Model
+namespace PAY_UK_LANE3000.Model
 {
     /// <summary>
     /// This message is used by C3 to send a text message to the Sales Application to display on the

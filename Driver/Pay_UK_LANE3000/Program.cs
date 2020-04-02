@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PAY_UK_IPP350.Communicator;
+using PAY_UK_LANE3000.Communicator;
 
-namespace PAY_UK_IPP350
+namespace PAY_UK_LANE3000
 {
     class Program
     {
@@ -13,16 +13,16 @@ namespace PAY_UK_IPP350
         {
             CoreCommunicator coreCommunicator = new CoreCommunicator();
 
-            PayIngenicoIpp350 payIngenicoIpp350 = new PayIngenicoIpp350(coreCommunicator);
+            PayIngenicoLANE3000 payIngenicoLANE3000 = new PayIngenicoLANE3000(coreCommunicator);
 
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            Log.Info(PayIngenicoIpp350.PAY_INGENICO_IPP350_LOG, "Pay Conexflow started.");
+            Log.Info(PayIngenicoLANE3000.PAY_INGENICO_LANE3000_LOG, "Pay Conexflow started.");
         }
 
     static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        Log.Info(PayIngenicoIpp350.PAY_INGENICO_IPP350_LOG, "Unhandled Exception: " + (e.ExceptionObject as Exception).Message);
+        Log.Info(PayIngenicoLANE3000.PAY_INGENICO_LANE3000_LOG, "Unhandled Exception: " + (e.ExceptionObject as Exception).Message);
     }
 }
 }

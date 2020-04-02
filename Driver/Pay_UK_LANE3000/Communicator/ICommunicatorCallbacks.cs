@@ -1,4 +1,4 @@
-﻿namespace PAY_UK_IPP350.Communicator
+﻿namespace PAY_UK_LANE3000.Communicator
 {
     public interface ICommunicatorCallbacks
     {
