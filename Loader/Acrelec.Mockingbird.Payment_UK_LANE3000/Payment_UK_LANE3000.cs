@@ -21,13 +21,13 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
     {
         private const string PAYMENT_ID = "826018";
 
-        private const string PAYMENT_LOG = "Payment_UK_LANE3000 ";
+        private const string PAYMENT_LOG = "Payment_UK_LANE3000";
 
-        private const string PAYMENT_NAME = "UK_LANE3000 ";
+        private const string PAYMENT_NAME = "UK_LANE3000";
 
-        private const string PAYMENT_APPLICATION_NAME = "PAY_UK_LANE3000 .exe";
+        private const string PAYMENT_APPLICATION_NAME = "PAY_UK_LANE3000.exe";
 
-        private const string PAYMENT_APPLICATION_PROCESS_NAME = "PAY_UK_LANE3000 ";
+        private const string PAYMENT_APPLICATION_PROCESS_NAME = "PAY_UK_LANE3000";
 
         private const string C3NET_CONFIG = "c3config";
 
