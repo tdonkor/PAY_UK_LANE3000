@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 
 namespace PAY_UK_LANE3000.Model
-{  
+{
     /// <summary>
     /// The EFT_BEGIN message is the message type used by the Sales Application to initiate
     /// commands to C3.The EFT_BEGIN message is used to perform the following functions:
@@ -317,11 +317,11 @@ namespace PAY_UK_LANE3000.Model
 
             FFU = new char[99];
             InitializeCharArrayWithSpaceChar(FFU);
-        }        
+        }
         #endregion
 
         #region Public Methods (Internal)
-        
+
         /// <summary>
         ///
         /// </summary>
@@ -469,10 +469,11 @@ namespace PAY_UK_LANE3000.Model
             return string.Empty;
         }
 
-        internal string GetTransactionMessage(string terminalID, string currency, string amount, string transactionNumber)
+        internal string GetTransactionMessage(string terminalID, string kioskID, string currency, string amount, string transactionNumber)
         {
             try
             {
+
                 CashNum = "00000001".ToArray();
 
                 CustomerPresent[0] = '1';
@@ -480,6 +481,7 @@ namespace PAY_UK_LANE3000.Model
                 TrnsNum = "0001".ToArray();
 
                 TenderType = "0 ".ToArray();
+
 
                 //Set the Operation 
                 Operation[0] = OperationTypes.Purchase;
@@ -523,6 +525,35 @@ namespace PAY_UK_LANE3000.Model
                     //Pad with spaces if the transction number is less than 8 characters
                     transactionNumber = transactionNumber.PadRight(8, ' ');
                     NumTicket = transactionNumber.ToArray();
+                }
+
+                //new code for the UserData1 it has 32 chars
+                //Set the transaction number to the UserData1
+                if (transactionNumber.Length > UserData1.Length)
+                {
+                    //Trun the last digits if the transaction number is larger than 32 chars
+                    transactionNumber = transactionNumber.Substring(0, 32);
+                    UserData1 = transactionNumber.ToArray();
+                }
+                else
+                {
+                    //Pad with spaces if the transction number is less than 32 characters
+                    transactionNumber = transactionNumber.PadRight(32, ' ');
+                    UserData1 = transactionNumber.ToArray();
+                }
+
+                //Set the kioskID number to the CashNum
+                if (kioskID.Length > CashNum.Length)
+                {
+                    //Truncate the last digits if CashNum is larger than 8 chars
+                    kioskID = kioskID.Substring(0, 8);
+                    CashNum = kioskID.ToArray();
+                }
+                else
+                {
+                    //Pad with spaces if the kioskID is less than 8 characters
+                    kioskID = kioskID.PadRight(8, ' ');
+                    CashNum = kioskID.ToArray();
                 }
 
 
@@ -577,7 +608,7 @@ namespace PAY_UK_LANE3000.Model
             }
             return string.Empty;
         }
-         
+
         #endregion
 
         #region Private Methods

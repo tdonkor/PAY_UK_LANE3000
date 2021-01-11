@@ -75,6 +75,11 @@ namespace PAY_UK_LANE3000
         private string TerminalID;
 
         /// <summary>
+        /// The ID of the Kiosk
+        /// </summary>
+        private string KioskID;
+
+        /// <summary>
         /// Time periode when the status of the terminal will be checked
         /// </summary>
         private int TestTimeout;
@@ -316,9 +321,9 @@ namespace PAY_UK_LANE3000
                 //Based on the selected currency create the appropriate command
                 string requestString = string.Empty;
                 if (CurrencyValue == "EUR")
-                    requestString = eftBeginRequestMessage.GetTransactionMessage(TerminalID, Currency.EUR.ToString(), payRequest.Amount.ToString(), payRequest.TransactionReference);
+                    requestString = eftBeginRequestMessage.GetTransactionMessage(TerminalID, KioskID, Currency.EUR.ToString(), payRequest.Amount.ToString(), payRequest.TransactionReference);
                 if (CurrencyValue == "GBP")
-                    requestString = eftBeginRequestMessage.GetTransactionMessage(TerminalID, Currency.GPB.ToString(), payRequest.Amount.ToString(), payRequest.TransactionReference);
+                    requestString = eftBeginRequestMessage.GetTransactionMessage(TerminalID, KioskID, Currency.GPB.ToString(), payRequest.Amount.ToString(), payRequest.TransactionReference);
 
                 //Send the eft begin init request
                 if (!c3NetCommunicator.Send(requestString))
@@ -781,7 +786,7 @@ namespace PAY_UK_LANE3000
                 if (jObject == null)
                     return false;
 
-                if (jObject["TerminalID"] == null || jObject["TestTimeout"] == null || jObject["Currency"] == null)
+                if (jObject["TerminalID"] == null || jObject["TestTimeout"] == null || jObject["Currency"] == null || jObject["KioskID"] == null)
                     return false;
 
                 CurrencyValue = jObject["Currency"].ToString();
@@ -793,6 +798,9 @@ namespace PAY_UK_LANE3000
 
                 TestTimeout = Convert.ToInt32(jObject["TestTimeout"].ToString()) * 60 * 1000;
                 Log.Info(PAY_INGENICO_LANE3000_LOG, "        Test Timeout: {0}", TestTimeout);
+
+                KioskID = jObject["KioskID"].ToString();
+                Log.Info(PAY_INGENICO_LANE3000_LOG, "        Kiosk ID: {0}", KioskID);
 
                 //Update the periodical check timer with the value of the C3
                 periodicalCheckTimer.Interval = TestTimeout;

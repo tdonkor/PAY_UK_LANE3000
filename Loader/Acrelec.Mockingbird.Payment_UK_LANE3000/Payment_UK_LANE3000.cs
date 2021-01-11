@@ -155,6 +155,8 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
 
         AdminPeripheralSetting currency;
 
+        AdminPeripheralSetting kioskID;
+
         /// <summary>
         /// Object in charge with log saving
         /// </summary>
@@ -251,6 +253,15 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
             cardApplications.SetttingSection = "";
             cardApplications.ControlDescription = "Applications that will be active after the initialization of the terminal. Example: ADM EMV SSC";
             cardApplications.ControlType = SettingDataType.String;
+
+            //kioskID
+            kioskID = new AdminPeripheralSetting();
+            kioskID.ControlName = "Kiosk ID";
+            kioskID.RealName = "KIOSK";
+            kioskID.CurrentValue = IniFilesSimple.ReadString("KIOSK", "", Path.Combine(DriverLocation, C3NET_CONFIG));
+            kioskID.SetttingSection = "";
+            kioskID.ControlDescription = "The kiosk ID value";
+            kioskID.ControlType = SettingDataType.String;
 
             currentPaymentInitConfig = new Payment
             {
@@ -353,6 +364,15 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
                                     return false;
                                 }
                                 cardApplications = paymentSetting;
+                                break;
+                            case "KIOSK":
+                                //Update the c3config filed
+                                if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
+                                {
+                                    logger.Info(PAYMENT_LOG, $"Failed to update c3config setting : {paymentSetting.ControlName}. {exceptionMessage}");
+                                    return false;
+                                }
+                                kioskID = paymentSetting;
                                 break;
                         }
                     }
@@ -645,6 +665,7 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
             //Add the settings
             currentPaymentInitConfig.ConfigurationSettings.Add(comPort);
             currentPaymentInitConfig.ConfigurationSettings.Add(terminalID);
+            currentPaymentInitConfig.ConfigurationSettings.Add(kioskID);
             currentPaymentInitConfig.ConfigurationSettings.Add(currency);
             currentPaymentInitConfig.ConfigurationSettings.Add(first_server);
             currentPaymentInitConfig.ConfigurationSettings.Add(second_server);

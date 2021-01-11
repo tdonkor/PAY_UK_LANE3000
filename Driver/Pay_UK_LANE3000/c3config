@@ -29,6 +29,7 @@ QTPV=20222001
 QCASH=00000001
 OFF_FILE=1
 TRNS_OFFLINE_COUNTER=5
+KIOSK=Kiosk1
 
 # 0 : Value Configured in tag below should not be used
 # 1 : Value configured in tag below should be used
