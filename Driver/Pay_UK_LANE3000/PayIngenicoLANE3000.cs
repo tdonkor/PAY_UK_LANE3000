@@ -786,7 +786,7 @@ namespace PAY_UK_LANE3000
                 if (jObject == null)
                     return false;
 
-                if (jObject["TerminalID"] == null || jObject["TestTimeout"] == null || jObject["Currency"] == null || jObject["KioskID"] == null)
+                if (jObject["TerminalID"] == null || jObject["KioskID"] == null || jObject["TestTimeout"] == null || jObject["Currency"] == null)
                     return false;
 
                 CurrencyValue = jObject["Currency"].ToString();
