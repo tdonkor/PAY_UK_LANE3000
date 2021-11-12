@@ -38,8 +38,6 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
         private const string MERCHANT_TICKET = "ticketmer"; //ticket for the merchant
 
         private const string VISA_RRP_DATA_VALUE = "DF6B10012E0001000011950000000032204000DF6B0701022030004000DF6B1201AC000531026826200100000BB900000BB9DF6B1501AC0008310268261200000301000005DD000003E9DF6B1201AC0005310268261201000005DD000009C5DF6B1201AC0005310268260001000007D1000005DD";
-
-
         string DriverLocation;
 
         private const PeripheralType PAYMENT_TYPE = Feather.Peripherals.Enums.PeripheralType.card;
@@ -156,6 +154,8 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
         AdminPeripheralSetting currency;
 
         AdminPeripheralSetting kioskID;
+
+        string checkCardAppValue;
 
         /// <summary>
         /// Object in charge with log saving
@@ -363,6 +363,19 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
                                     return false;
                                 }
                                 cardApplications = paymentSetting;
+                                checkCardAppValue = paymentSetting.CurrentValue.ToString();
+
+                                //get current value of CARTES
+                                string c3WriteErrorDescription = "Error Writing to C3 config file";
+
+                                bool contains = checkCardAppValue.IndexOf("VAS", StringComparison.OrdinalIgnoreCase) >= 0;
+                                if (contains)
+                                {
+                                    IniFilesSimple.WriteValue("CHGT_CAL_AXIS", "1", Path.Combine(DriverLocation, C3NET_CONFIG), ref c3WriteErrorDescription);
+                                }else
+                                { 
+                                    IniFilesSimple.WriteValue("CHGT_CAL_AXIS", "0", Path.Combine(DriverLocation, C3NET_CONFIG), ref c3WriteErrorDescription);
+                                }
                                 break;
                             case "KIOSK":
                                 //Update the c3config file
@@ -372,7 +385,9 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
                                     return false;
                                 }
                                 kioskID = paymentSetting;
+                               
                                 break;
+                    
                         }
                     }
 
@@ -670,8 +685,7 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
             currentPaymentInitConfig.ConfigurationSettings.Add(second_server);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineOne);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineTwo);
-            currentPaymentInitConfig.ConfigurationSettings.Add(cardApplications);
-
+            currentPaymentInitConfig.ConfigurationSettings.Add(cardApplications);         
             JObject result = new JObject();
             JArray printersArray = new JArray();
 
