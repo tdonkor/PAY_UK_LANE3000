@@ -29,6 +29,8 @@ QTPV=20222001
 QCASH=00000001
 OFF_FILE=1
 TRNS_OFFLINE_COUNTER=5
+
+# Cashier Number
 KIOSK=Kiosk1
 
 # 0 : Value Configured in tag below should not be used
@@ -165,8 +167,8 @@ AUTOMATE=1
 TRACE=7
 TRACE_CRYPT=1
 #TRACE_PURGE=2
-REPOS_1=     KFC
-REPOS_2=   Integration
+REPOS_1= WELCOME TO KFC
+REPOS_2=   RESTAURANTS
 
 # Generate log file of exchanges between the
 # Sales Application and C3 (No PCI Data included)

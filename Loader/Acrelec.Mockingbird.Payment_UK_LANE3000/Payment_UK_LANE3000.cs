@@ -38,8 +38,6 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
         private const string MERCHANT_TICKET = "ticketmer"; //ticket for the merchant
 
         private const string VISA_RRP_DATA_VALUE = "DF6B10012E0001000011950000000032204000DF6B0701022030004000DF6B1201AC000531026826200100000BB900000BB9DF6B1501AC0008310268261200000301000005DD000003E9DF6B1201AC0005310268261201000005DD000009C5DF6B1201AC0005310268260001000007D1000005DD";
-
-
         string DriverLocation;
 
         private const PeripheralType PAYMENT_TYPE = Feather.Peripherals.Enums.PeripheralType.card;
@@ -157,6 +155,8 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
 
         AdminPeripheralSetting kioskID;
 
+        string checkCardAppValue;
+
         /// <summary>
         /// Object in charge with log saving
         /// </summary>
@@ -200,7 +200,7 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
             first_server.RealName = "AXIS_COM";
             first_server.SettingFileName = C3NET_CONFIG;
             first_server.ControlDescription = "Ingenico communication Server. Example: 111.121.131.141 1234.";
-            first_server.CurrentValue = "0.0.0.0 0000";
+            first_server.CurrentValue = "91.208.214.1 40141";
             first_server.SetttingSection = "";
             first_server.ControlType = SettingDataType.String;
 
@@ -222,7 +222,7 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
             second_server.RealName = "AXIS_COM2";
             second_server.SettingFileName = C3NET_CONFIG;
             second_server.ControlDescription = "Ingenico secondary communication Server. Example: 111.121.131.141 1234.";
-            second_server.CurrentValue = "0.0.0.0 0000";
+            second_server.CurrentValue = "91.208.214.1 40141";
             second_server.SetttingSection = "";
             second_server.ControlType = SettingDataType.String;
 
@@ -254,12 +254,11 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
             cardApplications.ControlDescription = "Applications that will be active after the initialization of the terminal. Example: ADM EMV SSC";
             cardApplications.ControlType = SettingDataType.String;
 
-            //kioskID
+            // kioskID
             kioskID = new AdminPeripheralSetting();
             kioskID.ControlName = "Kiosk ID";
             kioskID.RealName = "KIOSK";
             kioskID.CurrentValue = IniFilesSimple.ReadString("KIOSK", "", Path.Combine(DriverLocation, C3NET_CONFIG));
-            kioskID.SetttingSection = "";
             kioskID.ControlDescription = "The kiosk ID value";
             kioskID.ControlType = SettingDataType.String;
 
@@ -364,16 +363,31 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
                                     return false;
                                 }
                                 cardApplications = paymentSetting;
+                                checkCardAppValue = paymentSetting.CurrentValue.ToString();
+
+                                //get current value of CARTES
+                                string c3WriteErrorDescription = "Error Writing to C3 config file";
+
+                                bool contains = checkCardAppValue.IndexOf("VAS", StringComparison.OrdinalIgnoreCase) >= 0;
+                                if (contains)
+                                {
+                                    IniFilesSimple.WriteValue("CHGT_CAL_AXIS", "1", Path.Combine(DriverLocation, C3NET_CONFIG), ref c3WriteErrorDescription);
+                                }else
+                                { 
+                                    IniFilesSimple.WriteValue("CHGT_CAL_AXIS", "0", Path.Combine(DriverLocation, C3NET_CONFIG), ref c3WriteErrorDescription);
+                                }
                                 break;
                             case "KIOSK":
-                                //Update the c3config filed
+                                //Update the c3config file
                                 if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
                                 {
                                     logger.Info(PAYMENT_LOG, $"Failed to update c3config setting : {paymentSetting.ControlName}. {exceptionMessage}");
                                     return false;
                                 }
                                 kioskID = paymentSetting;
+                               
                                 break;
+                    
                         }
                     }
 
@@ -469,7 +483,7 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
                 WasInitSuccessful = false;
 
                 //If the message is not received by the payment application the method will fail
-                if (!communicator.SendMessage(CommunicatorMethods.Init, new { TerminalID = terminalID.CurrentValue.ToString(), Currency = currency.CurrentValue.ToString(), TestTimeout = 3 }))
+                if (!communicator.SendMessage(CommunicatorMethods.Init, new { TerminalID = terminalID.CurrentValue.ToString(), KioskID = kioskID.CurrentValue.ToString(), Currency = currency.CurrentValue.ToString(), TestTimeout = 3 }))
                     return false;
 
                 //Wait until the payment application responds to the init message
@@ -671,8 +685,7 @@ namespace Acrelec.Mockingbird.Payment_UK_LANE3000
             currentPaymentInitConfig.ConfigurationSettings.Add(second_server);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineOne);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineTwo);
-            currentPaymentInitConfig.ConfigurationSettings.Add(cardApplications);
-
+            currentPaymentInitConfig.ConfigurationSettings.Add(cardApplications);         
             JObject result = new JObject();
             JArray printersArray = new JArray();
 

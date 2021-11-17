@@ -513,33 +513,37 @@ namespace PAY_UK_LANE3000.Model
                     Amount = amount.ToArray();
                 }
 
-                //Set the transaction number
-                if (transactionNumber.Length > NumTicket.Length)
-                {
-                    //Trun the last digits if the transaction number is larger than 8 chars
-                    transactionNumber = transactionNumber.Substring(0, 8);
-                    NumTicket = transactionNumber.ToArray();
-                }
-                else
-                {
-                    //Pad with spaces if the transction number is less than 8 characters
-                    transactionNumber = transactionNumber.PadRight(8, ' ');
-                    NumTicket = transactionNumber.ToArray();
-                }
+                ////Set the transaction number - Now done in the UserData1
+                //if (transactionNumber.Length > NumTicket.Length)
+                //{
+                //    //Trun the last digits if the transaction number is larger than 8 chars
+                //    transactionNumber = transactionNumber.Substring(0, 8);
+                //    NumTicket = transactionNumber.ToArray();
+                //}
+                //else
+                //{
+                //    //Pad with spaces if the transction number is less than 8 characters
+                //    transactionNumber = transactionNumber.PadRight(8, ' ');
+                //    NumTicket = transactionNumber.ToArray();
+                //}
 
                 //new code for the UserData1 it has 32 chars
                 //Set the transaction number to the UserData1
                 if (transactionNumber.Length > UserData1.Length)
                 {
-                    //Trun the last digits if the transaction number is larger than 32 chars
+                    //Trunc the last digits if the transaction number is larger than 32 chars
                     transactionNumber = transactionNumber.Substring(0, 32);
                     UserData1 = transactionNumber.ToArray();
+                    string userData = new string(UserData1);
+                    Log.Info("Transaction Num: " + userData);
                 }
                 else
                 {
                     //Pad with spaces if the transction number is less than 32 characters
                     transactionNumber = transactionNumber.PadRight(32, ' ');
                     UserData1 = transactionNumber.ToArray();
+                    string userData = new string(UserData1);
+                    Log.Info("Transaction Num: " + userData);
                 }
 
                 //Set the kioskID number to the CashNum
@@ -548,12 +552,16 @@ namespace PAY_UK_LANE3000.Model
                     //Truncate the last digits if CashNum is larger than 8 chars
                     kioskID = kioskID.Substring(0, 8);
                     CashNum = kioskID.ToArray();
+                    string cashNum = new string(CashNum);
+                    Log.Info("Cashier Num: " + cashNum);
                 }
                 else
                 {
                     //Pad with spaces if the kioskID is less than 8 characters
                     kioskID = kioskID.PadRight(8, ' ');
                     CashNum = kioskID.ToArray();
+                    string cashNum = new string(CashNum);
+                    Log.Info("Cashier Num: " + cashNum);
                 }
 
 
