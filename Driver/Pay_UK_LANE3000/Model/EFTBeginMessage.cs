@@ -552,12 +552,16 @@ namespace PAY_UK_LANE3000.Model
                     //Truncate the last digits if CashNum is larger than 8 chars
                     kioskID = kioskID.Substring(0, 8);
                     CashNum = kioskID.ToArray();
+                    string cashNum = new string(CashNum);
+                    Log.Info("Cashier Num: " + cashNum);
                 }
                 else
                 {
                     //Pad with spaces if the kioskID is less than 8 characters
                     kioskID = kioskID.PadRight(8, ' ');
                     CashNum = kioskID.ToArray();
+                    string cashNum = new string(CashNum);
+                    Log.Info("Cashier Num: " + cashNum);
                 }
 
 
